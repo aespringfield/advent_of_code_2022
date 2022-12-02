@@ -1,6 +1,6 @@
 module Day02
   class << self
-    SYMBOLS_TO_SHAPES = {
+    NOTATIONS_TO_SHAPES = {
       'X' => :rock,
       'Y' => :paper,
       'Z' => :scissors,
@@ -9,7 +9,8 @@ module Day02
       'C' => :scissors
     }.freeze
 
-    SYMBOLS_TO_OUTCOMES = {
+    # -1 is lose, 0 is tie, 1 is win
+    NOTATIONS_TO_OUTCOMES = {
       'X' => -1,
       'Y' => 0,
       'Z' => 1
@@ -35,18 +36,18 @@ module Day02
 
     def part_one(input)
       input.map do |line|
-        your_symbol, my_symbol = line.split(' ')
-        your_shape = SYMBOLS_TO_SHAPES[your_symbol]
-        my_shape = SYMBOLS_TO_SHAPES[my_symbol]
+        your_notation, my_notation = line.split(' ')
+        your_shape = NOTATIONS_TO_SHAPES[your_notation]
+        my_shape = NOTATIONS_TO_SHAPES[my_notation]
         calculate_score(determine_outcome(your_shape, my_shape), my_shape)
       end.sum
     end
 
     def part_two(input)
       input.map do |line|
-        your_symbol, symbol_for_outcome = line.split(' ')
-        your_shape = SYMBOLS_TO_SHAPES[your_symbol]
-        outcome = SYMBOLS_TO_OUTCOMES[symbol_for_outcome]
+        your_notation, notation_for_outcome = line.split(' ')
+        your_shape = NOTATIONS_TO_SHAPES[your_notation]
+        outcome = NOTATIONS_TO_OUTCOMES[notation_for_outcome]
         calculate_score(outcome, determine_shape(your_shape, outcome))
       end.sum
     end
