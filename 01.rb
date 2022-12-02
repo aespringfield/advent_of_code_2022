@@ -12,13 +12,10 @@ module Day01
 
     def split_array(array, delimiter, &block)
       array.each_with_object([]) do |el, acc|
-        acc << [] if acc.empty?
+        acc << [] && next if acc.empty?
+        acc << [] && next if el == delimiter
 
-        if el == delimiter
-          acc << []
-        else
-          acc.last << (block_given? ? block.call(el) : el)
-        end
+        acc.last << (block_given? ? block.call(el) : el)
       end
     end
   end
